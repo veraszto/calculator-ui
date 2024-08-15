@@ -1,0 +1,6 @@
+.hi {
+}
+
+.hi > .hello {
+	border:1px solid blue;
+}
