@@ -7,34 +7,34 @@ import './style.css';
 const App = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const [userInfo, setUserInfo] = useState({isAuthenticated: null});
 
     useEffect(() => {
         fetch("http://localhost:3000/is-authenticated", {credentials: "include"})
             .then(result => result.json())
             .then((result)=>{
-                setIsAuthenticated(result.isAuthenticated);
+                setUserInfo(result);
             })
     }, [])
 
-    if (isAuthenticated === null) {
+    if (userInfo.isAuthenticated === null) {
         return <Loader show={true} />
     }
 
-    if (isAuthenticated === false) {
+    if (userInfo.isAuthenticated === false) {
 	    return (
-            <div style={{height:'100%'}}>
-                <Loader show={isLoading} />
-                <Login setIsLoading={setIsLoading} />
-            </div>
+    <div style={{height:'100%'}}>
+        <Loader show={isLoading} />
+        <Login setIsLoading={setIsLoading} setUserInfo={setUserInfo} />
+    </div>
         );
     }
 
 	return (
-        <div style={{height:'100%'}}>
-            <Loader show={isLoading} />
-            <Main setIsLoading={setIsLoading} />
-        </div>
+    <div style={{height:'100%'}}>
+        <Loader show={isLoading} />
+        <Main setIsLoading={setIsLoading} userInfo={userInfo} setUserInfo={setUserInfo} />
+    </div>
     );
 }
 

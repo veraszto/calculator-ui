@@ -1,0 +1,74 @@
+.container {
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    color:lightgrey;
+}
+
+.header {
+    overflow:hidden;
+}
+
+.header > div {
+    float:left;
+}
+
+.header > div > article > span {
+    font-weight:bold;
+    font-size:2rem;
+    color:green;
+}
+
+.header > button {
+    float:right;
+}
+
+
+.container input {
+    border:0;
+    outline:none;
+    font-size:2rem;
+    color:#ddd;
+    width:100%;
+    background-color:transparent;
+}
+
+.container form div.inputDiv {
+    padding: 1rem;
+    background-color:#333;
+    border:1px solid grey;
+}
+
+.container form > div {
+    max-width:100rem;
+    margin:auto;
+}
+
+@media screen and (max-width:100rem) {
+    .container form > div {
+        width:80%;
+        max-width:none;
+    }
+}
+
+.container form button {
+    width:100%;
+    font-size:2rem;
+    padding:1rem;
+}
+
+.records > article {
+    display:flex;
+    flex-direction:row;
+}
+
+.records > article:first-child {
+    font-weight:bold;
+    color:green;
+}
+
+.records > article > div {
+    padding:1rem;
+    flex:1;
+}

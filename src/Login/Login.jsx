@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import * as styles from './style.module.css';
 
-const Login = ({setIsLoading}) => {
+const Login = ({setIsLoading, setUserInfo}) => {
 
     const authenticate = (username, password) => {
         setIsLoading(true);
@@ -26,15 +26,27 @@ const Login = ({setIsLoading}) => {
 
     return (
         <div className={styles.container}>
-            <form>
-                <div><input type="text" required placeholder="<user@email.com>" name="username" />
+            <form onSubmit={(ev)=>{
+                ev.preventDefault();
+                authenticate(document.forms[0].username.value, document.forms[0].password.value)
+                    .then((result)=>{
+                        setUserInfo(result);
+                    });
+            }}>
+                <div>
+                    <input 
+                        defaultValue="garbini@gmail.com" 
+                        type="text" required 
+                        placeholder="<user@email.com>" name="username" 
+                    />
                 </div>
-                <div><input type="password" required placeholder="<password>" name="password" />
+                <div>
+                    <input 
+                        defaultValue="12345" type="password" required 
+                        placeholder="<password>" name="password" 
+                    />
                 </div>
-                <button onClick={(ev)=>{
-                    ev.preventDefault();
-                    authenticate(document.forms[0].username.value, document.forms[0].password.value);
-                }}>Enter
+                <button>Enter
                 </button>
             </form>
         </div>
