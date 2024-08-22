@@ -37,14 +37,13 @@ const Login = ({setIsLoading, setUserInfo}) => {
             }}>
                 <div>
                     <input 
-                        defaultValue="garbini@gmail.com" 
                         type="text" required 
                         placeholder="<user@email.com>" name="username" 
                     />
                 </div>
                 <div>
                     <input 
-                        defaultValue="12345" type="password" required 
+                        type="password" required 
                         placeholder="<password>" name="password" 
                     />
                 </div>

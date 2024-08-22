@@ -26,7 +26,7 @@ const App = () => {
     }
 
     if (userInfo.isAuthenticated === false) {
-	    return (
+        return (
             <div style={{height:'100%'}}>
                 <Loader show={isLoading} />
                 <Login setIsLoading={setIsLoading} setUserInfo={setUserInfo} />
@@ -34,7 +34,7 @@ const App = () => {
         );
     }
 
-	return (
+    return (
         <div style={{height:'100%'}}>
             <Loader show={isLoading} />
             <Main setIsLoading={setIsLoading} userInfo={userInfo} setUserInfo={setUserInfo} />
