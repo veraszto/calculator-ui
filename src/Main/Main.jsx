@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import * as styles from './style.module.css';
+import BACKEND_URL from '/backend-url';
+const LogoutEndpoint = `${BACKEND_URL}/logout`;
+const RecordsEndpoint = `${BACKEND_URL}/records`;
+const OperationEndpoint = `${BACKEND_URL}/operation`;
 
 
 const Samples = "5+5 ; 102 - 2 ; 10*10 ; 125 / 25 ; sqroot900 ; random_string";
@@ -21,7 +25,7 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
     }
 
     const logout = () => {
-        fetch("http://localhost:3000/logout", {credentials: "include"})
+        fetch(LogoutEndpoint, {credentials: "include"})
             .then(result => result.json())
             .then((result)=>{
                 setUserInfo({isAuthenticated: false});
@@ -29,7 +33,7 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
     }
 
     const fetchRecords = (skip = 0) => {
-        return fetch("http://localhost:3000/records", {
+        return fetch(RecordsEndpoint, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -48,7 +52,7 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
     const reloadRecords = () => {
         setIsLoading(true);
         fetchRecords().then((res)=>{
-            console.log(res);
+            //console.log(res);
             setRecords(res);
             setHeadRecord(res[0]);
             setIsLoading(false);
@@ -57,7 +61,7 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
 
     const putOperation = (operation) => {
         setIsLoading(true);
-        return fetch("http://localhost:3000/operation", {
+        return fetch(OperationEndpoint, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"

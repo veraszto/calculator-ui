@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import * as styles from './style.module.css';
+import BACKEND_URL from '/backend-url';
+const LoginEndpoint = `${BACKEND_URL}/login`;
 
 const Login = ({setIsLoading, setUserInfo}) => {
 
     const authenticate = (username, password) => {
         setIsLoading(true);
-        return fetch("http://localhost:3000/login", {
+        return fetch(LoginEndpoint, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
