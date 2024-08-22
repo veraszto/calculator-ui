@@ -19,7 +19,8 @@ module.exports = {
         })
     ],
     devServer: {
-        static: './dist'
+        static: './dist',
+        port: process.env.PORT || 8080
     },
     output: {
         filename: '[name].bundle.js',
