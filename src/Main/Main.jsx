@@ -8,7 +8,7 @@ const OperationEndpoint = `${BACKEND_URL}/operation`;
 
 const Samples = "5+5 ; 102 - 2 ; 10*10 ; 125 / 25 ; sqroot900 ; random_string";
 
-const Main = ({setIsLoading, userInfo, setUserInfo}) => {
+const Main = ({setIsLoading, setUserInfo}) => {
 
     const [records, setRecords] = useState([]);
     const [headRecord, setHeadRecord] = useState(null);
@@ -127,6 +127,8 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
                     </div>
                     <div>Balance after execution
                     </div>
+                    <div>Date
+                    </div>
                 </article>
                 {
                     records.filter(record => record.operation_response !== undefined)
@@ -142,6 +144,8 @@ const Main = ({setIsLoading, userInfo, setUserInfo}) => {
                                     <div>{record.operation[0]?.cost}
                                     </div>
                                     <div>{record.user_balance}
+                                    </div>
+                                    <div>{record.date}
                                     </div>
                                 </article>
                             )

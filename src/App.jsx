@@ -17,7 +17,7 @@ const App = () => {
             .then((result)=>{
                 setUserInfo(result);
             }).catch((error)=>{
-                console.log('Has the backend url been properly configured by passing CALCULATOR_APP_BACKEND_URL environment when running this app?');
+                console.log('Is the backend up and has the backend url been properly configured by passing CALCULATOR_APP_BACKEND_URL environment when running this app?');
             })
     }, [])
 
@@ -37,7 +37,7 @@ const App = () => {
     return (
         <div style={{height:'100%'}}>
             <Loader show={isLoading} />
-            <Main setIsLoading={setIsLoading} userInfo={userInfo} setUserInfo={setUserInfo} />
+            <Main setIsLoading={setIsLoading} setUserInfo={setUserInfo} />
         </div>
     );
 }

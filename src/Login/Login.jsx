@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import * as styles from './style.module.css';
 import BACKEND_URL from '/backend-url';
 const LoginEndpoint = `${BACKEND_URL}/login`;
