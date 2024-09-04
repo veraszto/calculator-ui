@@ -6,7 +6,6 @@
 }
 
 .container form {
-    padding: 2rem;
 }
 
 .container form > div {
@@ -25,6 +24,7 @@
     font-size:2rem;
     color:#ddd;
     background:transparent;
+    width:100%;
 }
 
 .container button {

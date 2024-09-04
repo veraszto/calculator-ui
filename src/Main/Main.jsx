@@ -4,11 +4,15 @@ import BACKEND_URL from '/backend-url';
 const LogoutEndpoint = `${BACKEND_URL}/logout`;
 const RecordsEndpoint = `${BACKEND_URL}/records`;
 const OperationEndpoint = `${BACKEND_URL}/operation`;
+const SoftDeleteEndpoint = `${BACKEND_URL}/soft-delete`;
 
 
 const Samples = "5+5 ; 102 - 2 ; 10*10 ; 125 / 25 ; sqroot900 ; random_string";
 
-const Main = ({setIsLoading, setUserInfo}) => {
+//https://fontawesome.com/icons/square-minus?f=classic&s=regular
+const DeleteIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM152 232l144 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>;
+
+const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
 
     const [records, setRecords] = useState([]);
     const [headRecord, setHeadRecord] = useState(null);
@@ -59,6 +63,25 @@ const Main = ({setIsLoading, setUserInfo}) => {
         });
     }
 
+    const softDelete = (recordId) => {
+        setIsLoading(true);
+        fetch(SoftDeleteEndpoint, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({recordId}),
+            credentials: 'include'
+        }).then(res => res.json())
+        .then((res)=> {
+            checkIsAuthenticated(res);
+            reloadRecords();
+        }).catch((error) => {
+            setIsLoading(false);
+            console.log(error);
+        });
+    }
+
     const putOperation = (operation) => {
         setIsLoading(true);
         return fetch(OperationEndpoint, {
@@ -74,6 +97,8 @@ const Main = ({setIsLoading, setUserInfo}) => {
             checkIsAuthenticated(res);
             if (!res.error){
                 reloadRecords();
+            } else {
+                setDisplayMsg(res.error);
             }
         }).catch((error) => {
             setIsLoading(false);
@@ -129,6 +154,8 @@ const Main = ({setIsLoading, setUserInfo}) => {
                     </div>
                     <div>Date
                     </div>
+                    <div>Soft delete
+                    </div>
                 </article>
                 {
                     records.filter(record => record.operation_response !== undefined)
@@ -146,6 +173,12 @@ const Main = ({setIsLoading, setUserInfo}) => {
                                     <div>{record.user_balance}
                                     </div>
                                     <div>{record.date}
+                                    </div>
+                                    <div className={styles.deleteButton}>
+                                        <div onClick={function(ev){
+                                            softDelete(record._id);
+                                        }}>{DeleteIcon}
+                                        </div>
                                     </div>
                                 </article>
                             )

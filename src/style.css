@@ -7,8 +7,48 @@ body {
     font-family:Arial, Helvetica, sans-serif;
 }
 
+@media screen and (max-width:800px) {
+    :root {
+        font-size:13px;
+    }
+}
+
 #app {
     height:100%;
+}
+
+#msg {
+    position:fixed;
+    bottom:0;
+    width:100%;
+    box-sizing:border-box;
+    color:pink;
+    padding:1rem;
+    animation-name:blink;
+    animation-duration:1s;
+}
+
+#msg::after {
+    content:"Click anywhere within this viewport to dismiss";
+    font-size:.75rem;
+    position:absolute;
+    right:0;
+}
+
+@keyframes blink {
+    100% {
+        background-color:rgba(22, 22, 22, 0);
+    }
+    0%{
+        background-color:deeppink;
+    }
+
+}
+
+#msg > article {
+    width:50%;
+    margin:auto;
+    text-align:center;
 }
 
 button {

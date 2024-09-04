@@ -10,6 +10,7 @@ const App = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [userInfo, setUserInfo] = useState({isAuthenticated: null});
+    const [displayMsg, setDisplayMsg] = useState(null);
 
     useEffect(() => {
         fetch(IsAuthenticatedEndpoint, {credentials: "include"})
@@ -19,6 +20,9 @@ const App = () => {
             }).catch((error)=>{
                 console.log('Is the backend up and has the backend url been properly configured by passing CALCULATOR_APP_BACKEND_URL environment when running this app?');
             })
+            document.body.addEventListener('click', function(){
+                setDisplayMsg(null);
+            });
     }, [])
 
     if (userInfo.isAuthenticated === null) {
@@ -29,7 +33,11 @@ const App = () => {
         return (
             <div style={{height:'100%'}}>
                 <Loader show={isLoading} />
-                <Login setIsLoading={setIsLoading} setUserInfo={setUserInfo} />
+                <Login 
+                    setIsLoading={setIsLoading} 
+                    setUserInfo={setUserInfo} 
+                    setDisplayMsg={setDisplayMsg} 
+                />
             </div>
         );
     }
@@ -37,7 +45,17 @@ const App = () => {
     return (
         <div style={{height:'100%'}}>
             <Loader show={isLoading} />
-            <Main setIsLoading={setIsLoading} setUserInfo={setUserInfo} />
+            <Main 
+                setIsLoading={setIsLoading} 
+                setUserInfo={setUserInfo} 
+                setDisplayMsg={setDisplayMsg} 
+            />
+            {displayMsg && (
+                <div id="msg">
+                    <article>{displayMsg}
+                    </article>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,13 +1,9 @@
 .container {
-    height:100%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    gap:5rem;
     color:lightgrey;
-}
-
-.header {
-    overflow:hidden;
 }
 
 .header > div {
@@ -17,7 +13,7 @@
 .header > div > article > span {
     font-weight:bold;
     font-size:2rem;
-    color:green;
+    color:lightgreen;
 }
 
 .header > button {
@@ -65,10 +61,36 @@
 
 .records > article:first-child {
     font-weight:bold;
-    color:green;
+    color:lightgreen;
 }
 
 .records > article > div {
     padding:1rem;
     flex:1;
+    text-overflow:ellipsis;
+    min-width:0;
+    overflow:hidden;
 }
+
+.deleteButton {
+    text-align:center;
+}
+
+.deleteButton > div {
+    cursor:pointer;
+    height:2rem;
+    width:2rem;
+    display:inline-block;
+}
+
+@media (hover:hover) {
+    .deleteButton > div:hover > svg {
+        fill:red;
+    }
+}
+
+.deleteButton svg {
+    height:100%;
+    fill:pink;
+}
+
