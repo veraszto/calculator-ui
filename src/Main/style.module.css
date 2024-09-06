@@ -94,3 +94,18 @@
     fill:pink;
 }
 
+.paginationDescription {
+    text-align:center;
+}
+
+.paginationButtonsContainer {
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    gap:1px;
+}
+
+.paginationButtonsContainer > button {
+    padding:1rem;
+    width:5rem;
+}

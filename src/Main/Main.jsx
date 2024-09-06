@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import * as styles from './style.module.css';
-import BACKEND_URL from '/backend-url';
+import BACKEND_URL from '../backend-url';
 const LogoutEndpoint = `${BACKEND_URL}/logout`;
-const RecordsEndpoint = `${BACKEND_URL}/records`;
+export const RecordsEndpoint = `${BACKEND_URL}/records`;
 const OperationEndpoint = `${BACKEND_URL}/operation`;
 const SoftDeleteEndpoint = `${BACKEND_URL}/soft-delete`;
-
 
 const Samples = "5+5 ; 102 - 2 ; 10*10 ; 125 / 25 ; sqroot900 ; random_string";
 
@@ -16,6 +15,9 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
 
     const [records, setRecords] = useState([]);
     const [headRecord, setHeadRecord] = useState(null);
+    const [skipRecords, setSkipRecords] = useState(0);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [lockedSubmit, setLockedSubmit] = useState(false);
 
     useEffect(() => {
         reloadRecords();        
@@ -53,12 +55,15 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
         });
     }
 
-    const reloadRecords = () => {
+    const reloadRecords = (skip = 0) => {
         setIsLoading(true);
-        fetchRecords().then((res)=>{
-            //console.log(res);
-            setRecords(res);
-            setHeadRecord(res[0]);
+        fetchRecords(skip).then((res)=>{
+            setRecords(res.records);
+            if (skip === 0) {
+                setHeadRecord(res.records[0]);
+            }
+            setSkipRecords(res.skip);
+            setTotalRecords(res.totalRecords);
             setIsLoading(false);
         });
     }
@@ -84,6 +89,7 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
 
     const putOperation = (operation) => {
         setIsLoading(true);
+        setLockedSubmit(true);
         return fetch(OperationEndpoint, {
             method: 'PUT',
             headers: {
@@ -94,6 +100,7 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
         }).then(res => res.json())
         .then((res)=> {
             setIsLoading(false);
+            setLockedSubmit(false);
             checkIsAuthenticated(res);
             if (!res.error){
                 reloadRecords();
@@ -102,6 +109,7 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
             }
         }).catch((error) => {
             setIsLoading(false);
+            setLockedSubmit(false);
             console.log(error);
         });
     }
@@ -111,12 +119,12 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-testid="main">
             <section className={styles.header} style={{flex:1}}>
                 <div>
                     <article>Credits:<span>{headRecord.user_balance}</span>
                     </article>
-                    <article>{headRecord.user[0].username}: {headRecord.user[0]._id}
+                    <article>{headRecord.user?.[0]?.username}: {headRecord.user?.[0]?._id}
                     </article>
                 </div>
                 <button onClick={logout}>Logout
@@ -125,6 +133,10 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
             <section style={{flex:1}}>
                 <form onSubmit={(ev)=>{
                     ev.preventDefault();
+                    ev.target.operation?.blur();
+                    if (lockedSubmit) {
+                        return;
+                    }
                     putOperation(ev.target.operation.value);
 
                 }}>
@@ -161,14 +173,14 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
                     records.filter(record => record.operation_response !== undefined)
                         .map((record, index) => {
                             return (
-                                <article key={index}>
+                                <article key={index} className="record">
                                     <div>{record.queried}
                                     </div>
                                     <div>{record.operation_response}
                                     </div>
-                                    <div>{record.operation[0]?.type}
+                                    <div>{record.operation?.[0]?.type}
                                     </div>
-                                    <div>{record.operation[0]?.cost}
+                                    <div>{record.operation?.[0]?.cost}
                                     </div>
                                     <div>{record.user_balance}
                                     </div>
@@ -184,6 +196,29 @@ const Main = ({setIsLoading, setUserInfo, setDisplayMsg}) => {
                             )
                         })
                 }
+                <section className={styles.paginationDescription}>
+                    Showing:{(totalRecords - skipRecords) > 10 && 10 || (totalRecords - skipRecords)}, 
+                    Offset: {skipRecords}, 
+                    Total: {totalRecords}
+                </section>
+                <section className={styles.paginationButtonsContainer}>
+                    <button 
+                        onClick={()=>{
+                            let skip = skipRecords - 10;
+                            if (skip < 0) {
+                                skip = 0;
+                            }
+                            reloadRecords(skip);
+                        }} 
+                        disabled={skipRecords === 0}>Previous
+                    </button>
+                    <button 
+                        onClick={()=>{
+                            reloadRecords(skipRecords + 10);
+                        }} 
+                        disabled={(totalRecords - skipRecords) < 10}>Next
+                    </button>
+                </section>
             </section>
         </div>
     );

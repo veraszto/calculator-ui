@@ -1,6 +1,6 @@
 import React from 'react';
 import * as styles from './style.module.css';
-import BACKEND_URL from '/backend-url';
+import BACKEND_URL from '../backend-url';
 const LoginEndpoint = `${BACKEND_URL}/login`;
 
 const Login = ({setIsLoading, setUserInfo}) => {
@@ -27,7 +27,7 @@ const Login = ({setIsLoading, setUserInfo}) => {
 
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-testid="login">
             <form onSubmit={(ev)=>{
                 ev.preventDefault();
                 authenticate(document.forms[0].username.value, document.forms[0].password.value)

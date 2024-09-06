@@ -3,8 +3,8 @@ import Login from './Login/Login';
 import Main from './Main/Main';
 import Loader from './Loader/Loader';
 import './style.css';
-import BACKEND_URL from '/backend-url';
-const IsAuthenticatedEndpoint = `${BACKEND_URL}/is-authenticated`;
+import BACKEND_URL from './backend-url';
+export const IsAuthenticatedEndpoint = `${BACKEND_URL}/is-authenticated`;
 
 const App = () => {
 
@@ -16,7 +16,7 @@ const App = () => {
         fetch(IsAuthenticatedEndpoint, {credentials: "include"})
             .then(result => result.json())
             .then((result)=>{
-                setUserInfo(result);
+                return setUserInfo(result);
             }).catch((error)=>{
                 console.log('Is the backend up and has the backend url been properly configured by passing CALCULATOR_APP_BACKEND_URL environment when running this app?');
             })
