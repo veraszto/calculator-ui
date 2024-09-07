@@ -1,41 +1,41 @@
 .loader {
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    top:0;
-    background-color:rgba(100, 100, 100, .8);
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(100, 100, 100, 0.8);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes loader {
     to {
-        stroke-dasharray:500;
-        rotate:1 1 1 360deg;
+        stroke-dasharray: 500;
+        rotate: 1 1 1 360deg;
     }
-    50%  {
-        stroke-dasharray:150;
+    50% {
+        stroke-dasharray: 150;
     }
     from {
-        stroke-dasharray:500;
+        stroke-dasharray: 500;
     }
 }
 
 .loader > svg {
-    width:10rem;
-    height:10rem;
-    stroke-width:50;
-    stroke:red;
-    fill:transparent;
+    width: 10rem;
+    height: 10rem;
+    stroke-width: 50;
+    stroke: red;
+    fill: transparent;
     /*
     stroke-dasharray:250;
     stroke-dashoffset:200;
     */
-    animation-name:loader;
-    animation-duration:2s;
-    animation-timing-function:linear;
-    animation-iteration-count:infinite;
+    animation-name: loader;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }

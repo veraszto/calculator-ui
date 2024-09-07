@@ -1,111 +1,110 @@
 .container {
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    gap:5rem;
-    color:lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5rem;
+    color: lightgrey;
 }
 
 .header > div {
-    float:left;
+    float: left;
 }
 
 .header > div > article > span {
-    font-weight:bold;
-    font-size:2rem;
-    color:lightgreen;
+    font-weight: bold;
+    font-size: 2rem;
+    color: lightgreen;
 }
 
 .header > button {
-    float:right;
+    float: right;
 }
 
-
 .container input {
-    border:0;
-    outline:none;
-    font-size:2rem;
-    color:#ddd;
-    width:100%;
-    background-color:transparent;
+    border: 0;
+    outline: none;
+    font-size: 2rem;
+    color: #ddd;
+    width: 100%;
+    background-color: transparent;
 }
 
 .container form div.inputDiv {
     padding: 1rem;
-    background-color:#333;
-    border:1px solid grey;
+    background-color: #333;
+    border: 1px solid grey;
 }
 
 .container form > div {
-    max-width:100rem;
-    margin:auto;
+    max-width: 100rem;
+    margin: auto;
 }
 
-@media screen and (max-width:100rem) {
+@media screen and (max-width: 100rem) {
     .container form > div {
-        width:80%;
-        max-width:none;
+        width: 80%;
+        max-width: none;
     }
 }
 
 .container form button {
-    width:100%;
-    font-size:2rem;
-    padding:1rem;
+    width: 100%;
+    font-size: 2rem;
+    padding: 1rem;
 }
 
 .records > article {
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
 }
 
 .records > article:first-child {
-    font-weight:bold;
-    color:lightgreen;
+    font-weight: bold;
+    color: lightgreen;
 }
 
 .records > article > div {
-    padding:1rem;
-    flex:1;
-    text-overflow:ellipsis;
-    min-width:0;
-    overflow:hidden;
+    padding: 1rem;
+    flex: 1;
+    text-overflow: ellipsis;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .deleteButton {
-    text-align:center;
+    text-align: center;
 }
 
 .deleteButton > div {
-    cursor:pointer;
-    height:2rem;
-    width:2rem;
-    display:inline-block;
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    display: inline-block;
 }
 
-@media (hover:hover) {
+@media (hover: hover) {
     .deleteButton > div:hover > svg {
-        fill:red;
+        fill: red;
     }
 }
 
 .deleteButton svg {
-    height:100%;
-    fill:pink;
+    height: 100%;
+    fill: pink;
 }
 
 .paginationDescription {
-    text-align:center;
+    text-align: center;
 }
 
 .paginationButtonsContainer {
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    gap:1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1px;
 }
 
 .paginationButtonsContainer > button {
-    padding:1rem;
-    width:5rem;
+    padding: 1rem;
+    width: 5rem;
 }

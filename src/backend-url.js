@@ -1,1 +1,1 @@
-export default process.env.CALCULATOR_APP_BACKEND_URL
+export default process.env.CALCULATOR_APP_BACKEND_URL;
