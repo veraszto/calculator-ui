@@ -26,6 +26,7 @@ body {
     padding: 1rem;
     animation-name: blink;
     animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
 
 #msg::after {
@@ -37,7 +38,7 @@ body {
 
 @keyframes blink {
     100% {
-        background-color: rgba(22, 22, 22, 0);
+        background-color: #222;
     }
     0% {
         background-color: deeppink;

@@ -1,64 +1,64 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
-    mode: 'development',
-    devtool: 'inline-source-map',
+    mode: "development",
+    devtool: "inline-source-map",
     entry: {
-        index: './src/index.js',
+        index: "./src/index.js",
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: "index.html",
         }),
         new webpack.DefinePlugin({
-            'process.env.CALCULATOR_APP_BACKEND_URL': 
-                JSON.stringify(process.env.CALCULATOR_APP_BACKEND_URL) || 
-                JSON.stringify('http://localhost:3000')
-        })
+            "process.env.CALCULATOR_APP_BACKEND_URL":
+                JSON.stringify(process.env.CALCULATOR_APP_BACKEND_URL) ||
+                JSON.stringify("http://localhost:3000"),
+        }),
     ],
     devServer: {
-        static: './dist',
+        static: "./dist",
         port: process.env.PORT || 8080,
-        allowedHosts: 'all'
+        allowedHosts: "all",
     },
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true
+        filename: "[name].bundle.js",
+        path: path.resolve(__dirname, "dist"),
+        clean: true,
     },
     module: {
         parser: {
             css: {
-                namedExports: true
-            }
+                namedExports: true,
+            },
         },
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                     options: {
                         presets: [
-                            ['@babel/preset-env', { targets: "defaults" }],
-                            ['@babel/preset-react']
-                        ]
-                    }
-                }
+                            ["@babel/preset-env", { targets: "defaults" }],
+                            ["@babel/preset-react"],
+                        ],
+                    },
+                },
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }, 
+                use: ["style-loader", "css-loader"],
+            },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/,
-                type: 'asset/resource',
+                type: "asset/resource",
             },
-        ]
+        ],
     },
     resolve: {
-        extensions: ['.js', '.jsx']
-    }
+        extensions: [".js", ".jsx"],
+    },
 };

@@ -3,7 +3,7 @@ import * as styles from "./style.module.css";
 import BACKEND_URL from "../backend-url";
 const LoginEndpoint = `${BACKEND_URL}/login`;
 
-const Login = ({ setIsLoading, setUserInfo }) => {
+const Login = ({ setIsLoading, setUserInfo, setDisplayMsg }) => {
     const authenticate = (username, password) => {
         setIsLoading(true);
         return fetch(LoginEndpoint, {
@@ -36,6 +36,11 @@ const Login = ({ setIsLoading, setUserInfo }) => {
                         document.forms[0].username.value,
                         document.forms[0].password.value,
                     ).then((result) => {
+                        if (result.isAuthenticated === false) {
+                            setDisplayMsg(
+                                "Could not authenticate using the credentials provided",
+                            );
+                        }
                         setUserInfo(result);
                     });
                 }}

@@ -27,6 +27,12 @@ const App = () => {
         });
     }, []);
 
+    const messageContainer = displayMsg && (
+        <div id="msg">
+            <article>{displayMsg}</article>
+        </div>
+    );
+
     if (userInfo.isAuthenticated === null) {
         return <Loader show={true} />;
     }
@@ -35,6 +41,7 @@ const App = () => {
         return (
             <div style={{ height: "100%" }}>
                 <Loader show={isLoading} />
+                {messageContainer}
                 <Login
                     setIsLoading={setIsLoading}
                     setUserInfo={setUserInfo}
@@ -47,16 +54,12 @@ const App = () => {
     return (
         <div style={{ height: "100%" }}>
             <Loader show={isLoading} />
+            {messageContainer}
             <Main
                 setIsLoading={setIsLoading}
                 setUserInfo={setUserInfo}
                 setDisplayMsg={setDisplayMsg}
             />
-            {displayMsg && (
-                <div id="msg">
-                    <article>{displayMsg}</article>
-                </div>
-            )}
         </div>
     );
 };
