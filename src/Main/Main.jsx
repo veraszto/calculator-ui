@@ -227,7 +227,7 @@ const Main = ({ setIsLoading, setUserInfo, setDisplayMsg }) => {
                         onClick={() => {
                             reloadRecords(skipRecords + 10);
                         }}
-                        disabled={totalRecords - skipRecords < 10}
+                        disabled={totalRecords - skipRecords <= 10}
                     >
                         Next
                     </button>
